@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import 'slidable.dart';
@@ -18,15 +19,16 @@ class CustomSlidableAction extends StatelessWidget {
   ///
   /// The [flex] argument must also be greater than 0.
   const CustomSlidableAction({
-    super.key,
+    super.key, 
     this.flex = _kFlex,
     this.backgroundColor = _kBackgroundColor,
     this.foregroundColor,
     this.autoClose = _kAutoClose,
+    required this.onPressed,
     this.borderRadius = BorderRadius.zero,
     this.padding,
-    required this.onPressed,
     required this.child,
+    this.margin,
   }) : assert(flex > 0);
 
   /// {@template slidable.actions.flex}
@@ -82,6 +84,12 @@ class CustomSlidableAction extends StatelessWidget {
   /// Typically the action's icon or label.
   final Widget child;
 
+  /// {@template slidable.actions.margin}
+  /// The margin of the OutlinedButton
+  /// {@endtemplate}
+  /// Add the margin property to slidable
+  final EdgeInsetsGeometry? margin;
+
   @override
   Widget build(BuildContext context) {
     final effectiveForegroundColor = foregroundColor ??
@@ -92,7 +100,10 @@ class CustomSlidableAction extends StatelessWidget {
 
     return Expanded(
       flex: flex,
-      child: SizedBox.expand(
+      child: Container(
+        margin: margin,
+        height: double.infinity,
+        width: double.infinity,
         child: OutlinedButton(
           onPressed: () => _handleTap(context),
           style: OutlinedButton.styleFrom(
